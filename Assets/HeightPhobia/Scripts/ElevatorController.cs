@@ -14,6 +14,10 @@ public class ElevatorController : MonoBehaviour
     public Transform twelfthTransform;
     public Transform twentiethTransform;
 
+    public AudioSource audioSource;
+    public AudioClip startElevatorClip;
+    public AudioClip openElevatorClip;
+
     // Start is called before the first frame update
 
     private void Start()
@@ -26,6 +30,7 @@ public class ElevatorController : MonoBehaviour
         {
             return;
         }
+        StartElevatorSound();
         StartCoroutine(MoveToBasement(waitTime));
     }
     public void GoToFifthFloor()
@@ -34,6 +39,7 @@ public class ElevatorController : MonoBehaviour
         {
             return;
         }
+        StartElevatorSound();
         StartCoroutine(MoveToFifthFloor(waitTime));
     }
     public void GoToTwelfthFloor()
@@ -42,6 +48,7 @@ public class ElevatorController : MonoBehaviour
         {
             return;
         }
+        StartElevatorSound();
         StartCoroutine(MoveToTwelfthFloor(waitTime));
     }
     public void GoToTwentiethFloor()
@@ -50,6 +57,7 @@ public class ElevatorController : MonoBehaviour
         {
             return;
         }
+        StartElevatorSound();
         StartCoroutine(MoveToTwentiethFloor(waitTime));
     }
     private IEnumerator MoveToBasement(float time)
@@ -87,6 +95,7 @@ public class ElevatorController : MonoBehaviour
     public void OpenElevator()
     {
         anim.SetBool("IsOpening", true);
+        StopElevatorSound();
     }
     public void CloseElevator()
     {
@@ -104,5 +113,17 @@ public class ElevatorController : MonoBehaviour
         {
             OpenElevator();
         }
+    }
+    void StartElevatorSound()
+    {
+        audioSource.loop = true;
+        audioSource.clip = startElevatorClip;
+        audioSource.Play();
+    }
+    void StopElevatorSound()
+    {
+        audioSource.loop = false;
+        audioSource.clip = openElevatorClip;
+        audioSource.Play();
     }
 }
